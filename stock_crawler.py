@@ -4,6 +4,7 @@ import time
 from selenium.webdriver.common.keys import Keys
 import pandas as pd
 from tabulate import tabulate
+import twstock
 
 chrome_option = webdriver.ChromeOptions()
 chrome_option.add_experimental_option("detach", value=True)
@@ -30,7 +31,7 @@ for code in codes:
     is_titles_acquired = True
 driver.quit()
 df = pd.DataFrame(data, columns=titles)
-
+df.index = codes
 print(df)
 
 
