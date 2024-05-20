@@ -13,13 +13,9 @@ from linebot.v3.webhooks import MessageEvent, TextMessageContent
 from linebot import LineBotApi, WebhookHandler
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
-from pyngrok import ngrok
-
 
 app = Flask(__name__)
-port = "5000"
-public_url = ngrok.connect(port).public_url
-print(f' * ngrok tunnel "{public_url}" -> "http://127.0.0.1:{port}" ')
+
 
 configuration = Configuration(
     access_token="sd9Xz63Sn4wRF3JqThEPonlSKWaAPANWLsCJtKmjCjSyWG32tLF01b2Y8e8xPUlnPSCu8CXdhfF+Kb1r7nss0Ylr4AJzr+SN1AOsPVq99b4akIwSmRYQ1O18LrrW2j7/ragqkMU4XecWc7ujW6YhFQdB04t89/1O/w1cDnyilFU="
