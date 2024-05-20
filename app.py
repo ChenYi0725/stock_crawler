@@ -44,29 +44,29 @@ def callback():
     return "OK"
 
 
-# @handler.add(MessageEvent, message=TextMessageContent)
-# def handle_message(event):
-#     with ApiClient(configuration) as api_client:
-#         line_bot_api = MessagingApi(api_client)
-#         line_bot_api.reply_message_with_http_info(
-#             ReplyMessageRequest(
-#                 reply_token=event.reply_token,
-#                 messages=[TextMessage(text=event.message.text)],
-#             )
-#         )
-
-
-@handler.add(MessageEvent, message=TextMessage)
+@handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
-    text = event.message.text
-    if "股票" in text:
-        # 假設你有一個函數叫 get_stock_info(symbol)
-        stock_info = sc.get_2330_info("2330")  # 這裡可以根據text內容動態決定股票代碼
-        reply_text = f"股票資訊：\n{stock_info}"
-    else:
-        reply_text = "請輸入股票相關問題。"
+    with ApiClient(configuration) as api_client:
+        line_bot_api = MessagingApi(api_client)
+        line_bot_api.reply_message_with_http_info(
+            ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[TextMessage(text=event.message.text)],
+            )
+        )
 
-    LineBotApi.reply_message(event.reply_token, TextSendMessage(text=reply_text))
+
+# @handler.add(MessageEvent, message=TextMessage)
+# def handle_message(event):
+#     text = event.message.text
+#     if "股票" in text:
+#         # 假設你有一個函數叫 get_stock_info(symbol)
+#         stock_info = sc.get_2330_info("2330")  # 這裡可以根據text內容動態決定股票代碼
+#         reply_text = f"股票資訊：\n{stock_info}"
+#     else:
+#         reply_text = "請輸入股票相關問題。"
+
+#     LineBotApi.reply_message(event.reply_token, TextSendMessage(text=reply_text))
 
 
 if __name__ == "__main__":
