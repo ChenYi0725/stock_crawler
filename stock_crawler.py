@@ -39,9 +39,11 @@ def get_2330_info(stock_code):
     stock_info_df = pd.DataFrame([stock["info"]])
     stock_df = pd.DataFrame([stock["realtime"]])
     merged_df = pd.concat([stock_info_df, stock_df], axis=1)
-    print(merged_df)
+    str_merged_df = str(merged_df)
+    print(str_merged_df)
     return merged_df
 
 
+get_2330_info("1101")
 # titles = data[::2]
 # contents = data[1::2]
