@@ -11,6 +11,8 @@ from linebot.v3.messaging import (
 )
 from linebot.v3.webhooks import MessageEvent, TextMessageContent
 
+import stock_crawler as sc
+
 app = Flask(__name__)
 
 configuration = Configuration(
@@ -47,7 +49,7 @@ def handle_message(event):
         line_bot_api.reply_message_with_http_info(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text=event.message.text)],
+                messages=[TextMessage(text=sc.get_2330_info(event.message.text))],
             )
         )
 

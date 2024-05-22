@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 import pandas as pd
 from tabulate import tabulate
 import twstock
+import yfinance
 
 # chrome_option = webdriver.ChromeOptions()
 # chrome_option.add_experimental_option("detach", value=True)
@@ -35,13 +36,20 @@ import twstock
 # print(df)
 def get_2330_info(stock_code):
     stock_code = str(stock_code)
+
     stock = twstock.realtime.get(stock_code)
+    if not stock["success"]:
+        return f"無法獲取股票代碼 {stock_code} 的資料。"
     stock_info_df = pd.DataFrame([stock["info"]])
     stock_df = pd.DataFrame([stock["realtime"]])
     merged_df = pd.concat([stock_info_df, stock_df], axis=1)
-    str_merged_df = str(merged_df)
-    print(str_merged_df)
-    return merged_df
+    # 把df轉成字串
+    message_lines = []
+    for column in merged_df.columns:
+        value = merged_df.iloc[0][column]
+        message_lines.append(f"{column}: {value}")
+    message_text = "\n".join(message_lines)
+    return message_text
 
 
 get_2330_info("1101")
